@@ -1,0 +1,116 @@
+
+<html ng-app="app">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Binit Datta Online</title>
+
+    <!-- Bootstrap -->
+    <link href="lib/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="lib/css/style.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/css/animate.min.css">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="lib/css/bootstrap.css"/>
+    <link rel="stylesheet" href="lib/css/select2.css"/>
+    <link rel="stylesheet" href="lib/css/font-awesome.css"/>
+    <link rel="stylesheet" href="lib/css/jquery-ui.css"/>
+    <link rel="stylesheet" href="lib/css/unicorn.css"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+    <body  ng-controller="gitHubDataController">
+
+        <div class="container">
+                <h1 class="text-center">
+                    <span ng-hide="repoData"/>Loading...</span>
+                    <span />{{userData.name}}</span>
+                    <br>
+                    <a href="{{userData.html_url}}" class="btn btn-default">
+                        <span class="octicon octicon-octoface"></span>
+                        {{userData.login}}                        
+                    </a>
+                </h1>
+				</br/>
+				<div class="text-center">
+					 <form class="form-inline">
+                        <span>
+                            <h4>Github Account:
+	                            <input ng-model="gitusername" placeholder="Enter a Git user..." class="form-control input-sm">
+								<button ng-click="getData()">Fetch</button>
+                            </h4>
+                        </span>
+                    </form>
+				<!--	Github Account: <input ng-model="gitusername">
+					<button ng-click="getData()">Fetch</button> -->
+				<div>
+				<br/>	
+				<hr/>
+            <div class="panel  panel-default">
+                <div class="panel-heading">
+
+                    <form class="form-inline">
+                        <span>
+                            <h4>Repos <span class="badge">{{repoData.length}}</span>
+                            <input ng-model="searchText" placeholder="Find a repo..." class="form-control input-sm">
+                            </h4>
+                        </span>
+                    </form>
+
+                </div>
+                <div class="panel-body">
+
+					<table class="table table-striped">
+					   <tr ng-repeat="repo in repoData | filter:searchText  | orderBy:predicate:reverse">
+							<div class="col-md-4">
+								<td>
+                                    <dl class="dl-horizontal">
+                                      <dt>Created:</dt>
+                                      <dd>{{repo.created_at| date : short : timezone}}</dd>
+                                    </dl>
+							   </td>
+                           </div>
+						   <div class="col-md-4">
+							   <td>
+                                    <dl class="dl-horizontal">
+                                      <dt>Last Updated:</dt>
+                                      <dd>{{repo.updated_at | date : short : timezone}}</dd>
+                                    </dl>
+    						   </td>
+                            </div>
+						   <div class="col-md-4">
+								<td>
+								
+	                                   <a href="{{repo.html_url}}" target="_blank" >
+                                            {{repo.name}}
+                                        </a>
+                                    <small>
+                                        <a href="{{repo.homepage}}" class="">
+                                            <i class="fa fa-link"></i> WebPage
+                                        </a>
+                                    </small>
+								</td>
+                           </div>
+					   </tr>
+					</table>
+                </div>
+            </div>
+        </div>
+        <script src="lib/angular/angular.min.js" charset="utf-8"></script>
+        <script src="app/app.js" charset="utf-8"></script>
+
+    </body>
+    </body>
+</html>
